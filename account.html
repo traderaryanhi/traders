@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProTrader - Account Management</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav class="col-md-3 col-lg-2 d-md-block bg-dark sidebar p-4 shadow-sm">
+                <div class="d-flex align-items-center mb-4">
+                    <i class="bi bi-graph-up-arrow text-primary fs-2 me-2"></i>
+                    <h4 class="text-white mb-0">ProTrader</h4>
+                </div>
+                
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">
+                            <i class="bi bi-speedometer2 me-2"></i>Main Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="dashboard.html">
+                            <i class="bi bi-bar-chart me-2"></i>Advanced Charts
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="account.html">
+                            <i class="bi bi-person-circle me-2"></i>Account
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="learn.html">
+                            <i class="bi bi-book me-2"></i>Learn
+                        </a>
+                    </li>
+                </ul>
+                
+                <hr class="text-white">
+                
+                <div class="mb-3">
+                    <button id="themeToggle" class="btn btn-outline-light w-100 mb-3">
+                        <i class="bi bi-moon-stars me-2"></i>Dark Mode
+                    </button>
+                </div>
+            </nav>
+
+            <!-- Main Content -->
+            <main class="col-md-9 col-lg-10 ms-sm-auto px-4" id="main">
+                <!-- Header -->
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2 class="mb-0">👤 Account Management</h2>
+                    <div class="d-flex gap-2">
+                        <span class="badge bg-success">Active</span>
+                        <small class="text-muted" id="currentTime"></small>
+                    </div>
+                </div>
+
+                <!-- Account Overview -->
+                <div class="row g-4 mb-4">
+                    <div class="col-md-4">
+                        <div class="card bg-primary text-white">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <h6 class="card-title">Account Balance</h6>
+                                        <h4 class="mb-0" id="accountBalance">$125,430.50</h4>
+                                        <small class="text-success">+$2,450.25 (2.0%)</small>
+                                    </div>
+                                    <i class="bi bi-wallet2 fs-1"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card bg-success text-white">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <h6 class="card-title">Total Profit</h6>
+                                        <h4 class="mb-0" id="totalProfit">+$12,450.75</h4>
+                                        <small class="text-warning">+11.02% YTD</small>
+                                    </div>
+                                    <i class="bi bi-graph-up-arrow fs-1"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card bg-info text-white">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <h6 class="card-title">Active Positions</h6>
+                                        <h4 class="mb-0" id="activePositions">15</h4>
+                                        <small class="text-light">3 pending orders</small>
+                                    </div>
+                                    <i class="bi bi-briefcase fs-1"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Account Details -->
+                <div class="row g-4">
+                    <!-- Profile Information -->
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0">👤 Profile Information</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-4 text-center mb-3">
+                                        <div class="position-relative">
+                                            <img src="https://via.placeholder.com/100x100/667eea/ffffff?text=JD" 
+                                                 class="rounded-circle" alt="Profile" style="width: 100px; height: 100px;">
+                                            <button class="btn btn-sm btn-primary position-absolute bottom-0 end-0">
+                                                <i class="bi bi-camera"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <form id="profileForm">
+                                            <div class="row">
+                                                <div class="col-md-6 mb-3">
+                                                    <label class="form-label">First Name</label>
+                                                    <input type="text" class="form-control" value="John" id="firstName">
+                                                </div>
+                                                <div class="col-md-6 mb-3">
+                                                    <label class="form-label">Last Name</label>
+                                                    <input type="text" class="form-control" value="Doe" id="lastName">
+                                                </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">Email</label>
+                                                <input type="email" class="form-control" value="john.doe@example.com" id="email">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">Phone</label>
+                                                <input type="tel" class="form-control" value="+1 (555) 123-4567" id="phone">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">Country</label>
+                                                <select class="form-select" id="country">
+                                                    <option value="US" selected>United States</option>
+                                                    <option value="UK">United Kingdom</option>
+                                                    <option value="CA">Canada</option>
+                                                    <option value="AU">Australia</option>
+                                                </select>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">
+                                                <i class="bi bi-check-circle me-2"></i>Update Profile
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Account Settings -->
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0">⚙️ Account Settings</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-4">
+                                    <h6>Security Settings</h6>
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <span>Two-Factor Authentication</span>
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="twoFactor" checked>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <span>Email Notifications</span>
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="emailNotifications" checked>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <span>SMS Alerts</span>
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="smsAlerts">
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <h6>Trading Preferences</h6>
+                                    <div class="mb-3">
+                                        <label class="form-label">Default Chart Timeframe</label>
+                                        <select class="form-select" id="defaultTimeframe">
+                                            <option value="1min">1 Minute</option>
+                                            <option value="5min" selected>5 Minutes</option>
+                                            <option value="15min">15 Minutes</option>
+                                            <option value="1hour">1 Hour</option>
+                                            <option value="daily">Daily</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Risk Tolerance</label>
+                                        <select class="form-select" id="riskTolerance">
+                                            <option value="conservative">Conservative</option>
+                                            <option value="moderate" selected>Moderate</option>
+                                            <option value="aggressive">Aggressive</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <button class="btn btn-success me-2">
+                                    <i class="bi bi-save me-2"></i>Save Settings
+                                </button>
+                                <button class="btn btn-outline-secondary">
+                                    <i class="bi bi-arrow-clockwise me-2"></i>Reset to Default
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Performance Chart -->
+                <div class="card mt-4">
+                    <div class="card-header">
+                        <h5 class="mb-0">📈 Account Performance</h5>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="performanceChart" height="400"></canvas>
+                    </div>
+                </div>
+
+                <!-- Transaction History -->
+                <div class="card mt-4">
+                    <div class="card-header">
+                        <h5 class="mb-0">📋 Recent Transactions</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Type</th>
+                                        <th>Symbol</th>
+                                        <th>Quantity</th>
+                                        <th>Price</th>
+                                        <th>Total</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="transactionTable">
+                                    <!-- Transactions will be loaded here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script src="style.js"></script>
+    
+    <script>
+        // Initialize account page
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCurrentTime();
+            setInterval(updateCurrentTime, 1000);
+            loadPerformanceChart();
+            loadTransactions();
+            updateAccountData();
+        });
+
+        // Update current time
+        function updateCurrentTime() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString();
+            const dateString = now.toLocaleDateString();
+            const timeElement = document.getElementById('currentTime');
+            if (timeElement) {
+                timeElement.textContent = `${dateString} ${timeString}`;
+            }
+        }
+
+        // Update account data
+        function updateAccountData() {
+            // Get user data from localStorage
+            const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+            // Account data (demo, can be extended to allow user input)
+            const accountData = {
+                balance: userData.balance !== undefined ? userData.balance : null,
+                profit: userData.profit !== undefined ? userData.profit : null,
+                positions: userData.positions !== undefined ? userData.positions : null
+            };
+
+            if (document.getElementById('accountBalance')) {
+                document.getElementById('accountBalance').textContent = accountData.balance !== null ? `$${Number(accountData.balance).toLocaleString()}` : 'N/A';
+            }
+            if (document.getElementById('totalProfit')) {
+                document.getElementById('totalProfit').textContent = accountData.profit !== null ? `+$${Number(accountData.profit).toLocaleString()}` : 'N/A';
+            }
+            if (document.getElementById('activePositions')) {
+                document.getElementById('activePositions').textContent = accountData.positions !== null ? accountData.positions : 'N/A';
+            }
+
+            // Prefill profile form with real user data
+            if (userData.name) {
+                const nameParts = userData.name.split(' ');
+                document.getElementById('firstName').value = nameParts[0] || '';
+                document.getElementById('lastName').value = nameParts.slice(1).join(' ') || '';
+            }
+            if (userData.email) {
+                document.getElementById('email').value = userData.email;
+            }
+            if (userData.phone) {
+                document.getElementById('phone').value = userData.phone;
+            }
+            if (userData.country) {
+                document.getElementById('country').value = userData.country;
+            }
+        }
+
+        // Load performance chart
+        function loadPerformanceChart() {
+            const ctx = document.getElementById('performanceChart');
+            if (!ctx) return;
+
+            const labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            const data = [100000, 105000, 108000, 112000, 115000, 118000, 120000, 122000, 125000, 127000, 129000, 132000];
+
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Account Value',
+                        data: data,
+                        borderColor: '#667eea',
+                        backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: true
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            ticks: {
+                                callback: function(value) {
+                                    return '$' + value.toLocaleString();
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Load transactions
+        function loadTransactions() {
+            const tableBody = document.getElementById('transactionTable');
+            if (!tableBody) return;
+
+            const transactions = [
+                { date: '2024-08-04', type: 'BUY', symbol: 'AAPL', quantity: 10, price: 175.50, total: 1755.00, status: 'Completed' },
+                { date: '2024-08-03', type: 'SELL', symbol: 'GOOGL', quantity: 5, price: 2950.00, total: 14750.00, status: 'Completed' },
+                { date: '2024-08-02', type: 'BUY', symbol: 'TSLA', quantity: 8, price: 250.00, total: 2000.00, status: 'Completed' },
+                { date: '2024-08-01', type: 'BUY', symbol: 'MSFT', quantity: 12, price: 320.00, total: 3840.00, status: 'Completed' },
+                { date: '2024-07-31', type: 'SELL', symbol: 'NVDA', quantity: 15, price: 450.00, total: 6750.00, status: 'Completed' }
+            ];
+
+            tableBody.innerHTML = '';
+            transactions.forEach(tx => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${tx.date}</td>
+                    <td><span class="badge bg-${tx.type === 'BUY' ? 'success' : 'danger'}">${tx.type}</span></td>
+                    <td><strong>${tx.symbol}</strong></td>
+                    <td>${tx.quantity}</td>
+                    <td>$${tx.price.toFixed(2)}</td>
+                    <td>$${tx.total.toFixed(2)}</td>
+                    <td><span class="badge bg-success">${tx.status}</span></td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        // Handle profile form submission
+        document.getElementById('profileForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            showAlert('Profile updated successfully!', 'success');
+        });
+
+        // Theme toggle
+        function toggleTheme() {
+            const body = document.body;
+            const toggleBtn = document.getElementById('themeToggle');
+            
+            body.classList.toggle('bg-dark');
+            body.classList.toggle('text-white');
+            
+            const isDark = body.classList.contains('bg-dark');
+            toggleBtn.innerHTML = isDark ? 
+                '<i class="bi bi-sun me-2"></i>Light Mode' : 
+                '<i class="bi bi-moon-stars me-2"></i>Dark Mode';
+            
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        }
+
+        // Initialize theme
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('bg-dark', 'text-white');
+            const toggleBtn = document.getElementById('themeToggle');
+            if (toggleBtn) {
+                toggleBtn.innerHTML = '<i class="bi bi-sun me-2"></i>Light Mode';
+            }
+        }
+
+        // Add event listener for theme toggle
+        document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+
+        // Show alert function
+        function showAlert(message, type = 'info') {
+            const alertDiv = document.createElement('div');
+            alertDiv.className = `alert alert-${type} alert-dismissible fade show position-fixed`;
+            alertDiv.style.cssText = 'top: 20px; right: 20px; z-index: 9999; min-width: 300px;';
+            alertDiv.innerHTML = `
+                ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            `;
+            
+            document.body.appendChild(alertDiv);
+            
+            setTimeout(() => {
+                alertDiv.remove();
+            }, 5000);
+        }
+    </script>
+</body>
+</html>
